@@ -38,10 +38,6 @@ function addWoof (text) {
     created_at: createdAt,
     text: text
   })
-  addWoofRow(createdAt, {
-    created_at: createdAt,
-    text: text
-  })
 }
 
 // Get woof text from input and pass it to addWoof
@@ -77,7 +73,6 @@ function editWoof (event) {
     // Enter key pressed
     updateWoofRow(row, { text: textbox.value })
     // TODO set the new text on /woofs/{row.id} in firebase instead of calling updateWoofRow
-
   } else if (event.keyCode === 27) {
     // Escape key pressed
     form.className = form.className.replace('show', 'hidden')
@@ -107,6 +102,12 @@ function deleteWoof () {
 }
 
 // TODO watch for child_added, child_changed, and child_removed events in firebase
+
+function updateWoofList (newWoofSnapshot) {
+  addWoofRow(newWoofSnapshot.key, newWoofSnapshot.val())
+}
+
+firebase.database().ref('woofs').on('child_added', updateWoofList)
 
 // Event listeners to add a new woof
 woofCreate.addEventListener('click', createWoof)
