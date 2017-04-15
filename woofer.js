@@ -2,7 +2,18 @@ var woofText = document.getElementById('woof-text')
 var woofs = document.getElementById('woofs')
 var woofCreate = document.getElementById('woof-button')
 
-// TODO: connect to firebase
+// Initialize Firebase
+var config = {
+  apiKey: 'AIzaSyA8pXiNlI_51_iEcKEBc0NSsVXOjKjysYI',
+  authDomain: 'woofer-7b430.firebaseapp.com',
+  databaseURL: 'https://woofer-7b430.firebaseio.com',
+  projectId: 'woofer-7b430',
+  storageBucket: 'woofer-7b430.appspot.com',
+  messagingSenderId: '76059962967'
+}
+firebase.initializeApp(config)
+
+firebase.auth().signInAnonymously()
 
 // Adds a new row to the list of woofs
 function addWoofRow (woofKey, woof) {
@@ -23,11 +34,14 @@ function addWoofRow (woofKey, woof) {
 // Adds a new woof to the database
 function addWoof (text) {
   var createdAt = new Date().getTime()
+  firebase.database().ref('woofs').push({
+    created_at: createdAt,
+    text: text
+  })
   addWoofRow(createdAt, {
     created_at: createdAt,
     text: text
   })
-  // TODO push a new object to /woofs in firebase instead of calling addWoofRow
 }
 
 // Get woof text from input and pass it to addWoof
@@ -63,6 +77,7 @@ function editWoof (event) {
     // Enter key pressed
     updateWoofRow(row, { text: textbox.value })
     // TODO set the new text on /woofs/{row.id} in firebase instead of calling updateWoofRow
+
   } else if (event.keyCode === 27) {
     // Escape key pressed
     form.className = form.className.replace('show', 'hidden')
