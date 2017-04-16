@@ -14,7 +14,7 @@ firebase.auth().signInAnonymously()
 
 // CREATE a new woof in Firebase
 function createWoofInDatabase (woof) {
-  firebase.database().ref('woof').push({
+  firebase.database().ref('woofs').push({
     created_at: woof.created_at,
     text: woof.text
   })
@@ -24,17 +24,17 @@ function createWoofInDatabase (woof) {
 // Call addWoofRow, updateWoofRow, and deleteWoofRow to update the page
 function readWoofsInDatabase () {
   // read new firebase records
-  firebase.database().ref('woof')
+  firebase.database().ref('woofs')
   .on('child_added', function (newWoofSnapshot) {
     addWoofRow(newWoofSnapshot.key, newWoofSnapshot.val())
   })
   // read updated firebase records
-  firebase.database().ref('woof')
+  firebase.database().ref('woofs')
   .on('child_changed', function (changedWoofSnapshot) {
     updateWoofRow(changedWoofSnapshot.key, changedWoofSnapshot.val())
   })
   // read deleted firebase records
-  firebase.database().ref('woof')
+  firebase.database().ref('woofs')
   .on('child_removed', function (deletedWoofSnapshot) {
     deleteWoofRow(deletedWoofSnapshot.key)
   })
@@ -42,14 +42,14 @@ function readWoofsInDatabase () {
 
 // UPDATE the woof in Firebase
 function updateWoofInDatabase (woofKey, woofText) {
-  firebase.database().ref('woof').child(woofKey).set({
+  firebase.database().ref('woofs').child(woofKey).set({
     text: woofText
   })
 }
 
 // DELETE the woof from Firebase
 function deleteWoofFromDatabase (woofKey) {
-  // TODO delete the record from Firebase
+  firebase.database().ref('woofs').child(woofKey).remove()
 }
 
 // Load all of the data
