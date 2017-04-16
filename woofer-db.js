@@ -34,7 +34,6 @@ function readWoofsInDatabase () {
     updateWoofRow(changedWoofSnapshot.key, changedWoofSnapshot.val())
   })
   // read deleted firebase records
-  // read updated firebase records
   firebase.database().ref('woof')
   .on('child_removed', function (deletedWoofSnapshot) {
     deleteWoofRow(deletedWoofSnapshot.key)
@@ -43,7 +42,9 @@ function readWoofsInDatabase () {
 
 // UPDATE the woof in Firebase
 function updateWoofInDatabase (woofKey, woofText) {
-  // TODO update the record in Firebase
+  firebase.database().ref('woof').child(woofKey).set({
+    text: woofText
+  })
 }
 
 // DELETE the woof from Firebase
