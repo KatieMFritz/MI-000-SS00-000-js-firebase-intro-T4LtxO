@@ -98,7 +98,7 @@ function deleteWoofRow (row) {
 function deleteWoof () {
   var row = this.parentElement.parentElement
   deleteWoofRow(row)
-  // TODO remove /woofs/{row.id} from firebase instead of calling deleteWoofRow
+  firebase.database().ref('woofs').child(row.id).remove()
 }
 
 // TODO watch for child_added, child_changed, and child_removed events in firebase
