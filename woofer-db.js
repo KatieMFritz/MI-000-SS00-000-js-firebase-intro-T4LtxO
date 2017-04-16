@@ -24,6 +24,10 @@ function createWoofInDatabase (woof) {
 // Call addWoofRow, updateWoofRow, and deleteWoofRow to update the page
 function readWoofsInDatabase () {
   // TODO read new, changed, and deleted Firebase records
+  firebase.database().ref('woof')
+  .on('child_added', function (newWoofSnapshot) {
+    addWoofRow(newWoofSnapshot.key, newWoofSnapshot.val())
+  })
 }
 
 // UPDATE the woof in Firebase
