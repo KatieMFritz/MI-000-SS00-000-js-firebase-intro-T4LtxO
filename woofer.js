@@ -107,7 +107,13 @@ function updateWoofList (newWoofSnapshot) {
   addWoofRow(newWoofSnapshot.key, newWoofSnapshot.val())
 }
 
+function removeWoof (removedWoofSnapshot) {
+  var row = document.getElementById(removedWoofSnapshot.key)
+  deleteWoofRow(row)
+}
+
 firebase.database().ref('woofs').on('child_added', updateWoofList)
+firebase.database().ref('woofs').on('child_removed', removeWoof)
 
 // Event listeners to add a new woof
 woofCreate.addEventListener('click', createWoof)
