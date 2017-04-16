@@ -1,5 +1,4 @@
-// TODO Sign into the database anonymously
-
+/* global firebase */
 // Initialize Firebase
 var config = {
   apiKey: 'AIzaSyA8pXiNlI_51_iEcKEBc0NSsVXOjKjysYI',
@@ -13,10 +12,12 @@ firebase.initializeApp(config)
 
 firebase.auth().signInAnonymously()
 
-
 // CREATE a new woof in Firebase
 function createWoofInDatabase (woof) {
-  // TODO create a new record in Firebase
+  firebase.database().ref('woof').push({
+    created_at: woof.created_at,
+    text: woof.text
+  })
 }
 
 // READ from Firebase when woofs are added, changed, or removed
