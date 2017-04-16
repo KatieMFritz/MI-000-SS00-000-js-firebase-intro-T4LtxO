@@ -1,4 +1,4 @@
-//
+/* global moment */
 //
 //            !!!!!!!! WARNING !!!!!!!!
 //
