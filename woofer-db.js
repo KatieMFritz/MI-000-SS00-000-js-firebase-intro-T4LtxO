@@ -39,9 +39,7 @@ function readWoofsInDatabase () {
 
 // UPDATE the woof in Firebase
 function updateWoofInDatabase (woofKey, woofText) {
-  firebase.database().ref('woofs').child(woofKey).set({
-    text: woofText
-  })
+  firebase.database().ref('woofs').child(woofKey).child('text').set(woofText)
 }
 
 // DELETE the woof from Firebase
