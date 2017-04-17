@@ -14,10 +14,7 @@ firebase.auth().signInAnonymously()
 
 // CREATE a new woof in Firebase
 function createWoofInDatabase (woof) {
-  firebase.database().ref('woofs').push({
-    created_at: woof.created_at,
-    text: woof.text
-  })
+  firebase.database().ref('woofs').push(woof)
 }
 
 // READ from Firebase when woofs are added, changed, or removed
